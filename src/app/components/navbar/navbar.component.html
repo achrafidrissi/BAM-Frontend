@@ -1,1 +1,42 @@
-<p>navbar works!</p>
+<nav class="navbar">
+  <div class="navbar-left">
+    <img
+      src="assets/images/logo-bam.png"
+      alt="BANK AL-MAGHRIB Logo"
+      class="navbar-logo"
+    />
+    <span class="site-title">BANK AL-MAGHRIB MARKETPLACE</span>
+  </div>
+  <div class="navbar-center" [class.open]="mobileMenuOpen">
+    <a href="/" class="nav-link">Home</a>
+    <a href="/products" class="nav-link">Products</a>
+    <a href="#" class="nav-link">Collections</a>
+    <a href="/about" class="nav-link">About</a>
+    <a href="/contact" class="nav-link">Contact</a>
+  </div>
+  <div class="navbar-right">
+    <div class="search-bar">
+      <input type="text" placeholder="Search..." />
+      <span class="icon search-icon"><i class="fa fa-search"></i></span>
+    </div>
+    <span class="icon user-icon"><i class="fa fa-user"></i></span>
+    <span class="icon cart-icon">
+      <i class="fa fa-shopping-cart"></i>
+      <span class="cart-badge" *ngIf="cartItemCount > 0">{{
+        cartItemCount
+      }}</span>
+    </span>
+    <button class="hamburger" (click)="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" *ngIf="mobileMenuOpen">
+    <a href="/" class="nav-link" (click)="toggleMobileMenu()">Home</a>
+    <a href="/products" class="nav-link" (click)="toggleMobileMenu()"
+      >Products</a
+    >
+    <a href="#" class="nav-link" (click)="toggleMobileMenu()">Collections</a>
+    <a href="/about" class="nav-link" (click)="toggleMobileMenu()">About</a>
+    <a href="/contact" class="nav-link" (click)="toggleMobileMenu()">Contact</a>
+  </div>
+</nav>

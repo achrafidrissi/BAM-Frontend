@@ -1,6 +1,13 @@
+.login-logo {
+  display: block;
+  margin: 0 auto 1.5rem auto;
+  max-width: 120px;
+  height: auto;
+}
+
 .login-container {
   max-width: 400px;
-  margin: 40px auto;
+  margin: 96px auto 40px auto;
   padding: 2rem 1.5rem;
   background: #fff;
   border-radius: 12px;
@@ -91,7 +98,12 @@ button[type="submit"]:disabled {
 }
 
 @media (max-width: 600px) {
+  .login-logo {
+    max-width: 80px;
+    margin-bottom: 1rem;
+  }
   .login-container {
+    margin-top: 72px;
     padding: 1.25rem 0.5rem;
     max-width: 95vw;
   }
