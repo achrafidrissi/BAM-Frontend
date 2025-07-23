@@ -1,1 +1,78 @@
-<p>dashboard works!</p>
+<div class="dashboard-bg">
+  <div class="dashboard-container">
+    <!-- Welcome Header -->
+    <div class="dashboard-header">
+      <div>
+        <h1>Welcome back, {{ userName }}!</h1>
+        <div class="dashboard-date">{{ today | date : "fullDate" }}</div>
+      </div>
+      <img
+        src="assets/images/logo-bam.png"
+        alt="BANK AL-MAGHRIB Logo"
+        class="dashboard-logo"
+      />
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="dashboard-actions">
+      <button class="action-btn">
+        <i class="fa fa-box"></i> Manage Products
+      </button>
+      <button class="action-btn">
+        <i class="fa fa-shopping-bag"></i> View Orders
+      </button>
+      <button class="action-btn">
+        <i class="fa fa-plus"></i> Add New Item
+      </button>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="dashboard-stats">
+      <div class="stat-card" *ngFor="let stat of stats">
+        <div class="stat-icon"><i class="fa {{ stat.icon }}"></i></div>
+        <div class="stat-label">{{ stat.label }}</div>
+        <div class="stat-value">{{ stat.value }}</div>
+      </div>
+    </div>
+
+    <!-- Main Grid: Recent Activity & CTA -->
+    <div class="dashboard-main-grid">
+      <!-- Recent Activity -->
+      <div class="recent-activity-card">
+        <div class="recent-header">
+          <i class="fa fa-clock"></i> Recent Activity
+        </div>
+        <table class="recent-table">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Product</th>
+              <th>Amount</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of recentOrders">
+              <td>{{ order.id }}</td>
+              <td>{{ order.product }}</td>
+              <td>{{ order.amount }}</td>
+              <td>{{ order.date }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- CTA Card -->
+      <div class="cta-card">
+        <div class="cta-content">
+          <div class="cta-title">
+            <i class="fa fa-bullhorn"></i> Launch New Collection
+          </div>
+          <div class="cta-desc">
+            Showcase your latest products to the marketplace audience.
+          </div>
+          <button class="cta-btn">Start Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -11,9 +11,10 @@ import { AboutPageComponent } from './pages/about-page/about-page.component';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 export const routes: Routes = [
-  { path: '', component: HomePageComponent },
+  { path: '', component: DashboardComponent },
   { path: 'products', component: ProductListPageComponent },
   { path: 'products/:id', component: ProductDetailPageComponent },
   { path: 'cart', component: CartPageComponent },
