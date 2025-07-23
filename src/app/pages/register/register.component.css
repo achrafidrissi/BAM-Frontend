@@ -1,0 +1,113 @@
+.register-logo {
+  display: block;
+  margin: 0 auto 1.5rem auto;
+  max-width: 120px;
+  height: auto;
+}
+
+.register-container {
+  max-width: 400px;
+  margin: 96px auto 40px auto;
+  padding: 2rem 1.5rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  color: #222;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+input:focus {
+  border-color: #1976d2;
+  outline: none;
+}
+
+input.invalid {
+  border-color: #e53935;
+}
+
+.error {
+  color: #e53935;
+  font-size: 0.92rem;
+  margin-top: 0.25rem;
+}
+
+button[type="submit"] {
+  padding: 0.75rem;
+  background: #8b6e42;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.2s;
+}
+
+button[type="submit"]:disabled {
+  background: #b0bec5;
+  cursor: not-allowed;
+}
+
+.login-link {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.login-link a {
+  color: #8b6e42;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 0.25rem;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .register-logo {
+    max-width: 80px;
+    margin-bottom: 1rem;
+  }
+  .register-container {
+    margin-top: 72px;
+    padding: 1.25rem 0.5rem;
+    max-width: 95vw;
+  }
+  form {
+    font-size: 0.98rem;
+  }
+}

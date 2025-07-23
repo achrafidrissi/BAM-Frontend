@@ -10,6 +10,7 @@ import { OrderConfirmationPageComponent } from './pages/order-confirmation-page/
 import { AboutPageComponent } from './pages/about-page/about-page.component';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -17,7 +18,7 @@ export const routes: Routes = [
   { path: 'products/:id', component: ProductDetailPageComponent },
   { path: 'cart', component: CartPageComponent },
   { path: 'login', component: LoginPageComponent },
-  { path: 'register', component: RegisterPageComponent },
+  { path: 'register', component: RegisterComponent },
   { path: 'checkout', component: CheckoutPageComponent },
   { path: 'order-confirmation', component: OrderConfirmationPageComponent },
   { path: 'about', component: AboutPageComponent },
