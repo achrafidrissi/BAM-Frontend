@@ -1,0 +1,113 @@
+<div class="client-dashboard-bg">
+  <div class="client-dashboard-container">
+    <!-- Welcome Header -->
+    <div class="client-dashboard-header">
+      <div>
+        <h1>Welcome back, {{ userName }}!</h1>
+        <div class="client-dashboard-date">{{ today | date : "fullDate" }}</div>
+      </div>
+      <img
+        src="assets/images/logo-bam.png"
+        alt="BANK AL-MAGHRIB Logo"
+        class="client-dashboard-logo"
+      />
+    </div>
+
+    <!-- Featured Products Section -->
+    <div class="featured-section">
+      <h2 class="section-title">
+        <i class="fa fa-star"></i> Featured Products
+      </h2>
+      <div class="featured-products-grid">
+        <div class="product-card" *ngFor="let product of featuredProducts">
+          <div class="product-image">
+            <img src="assets/images/logo-bam.png" [alt]="product.name" />
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">{{ product.name }}</h3>
+            <p class="product-description">{{ product.description }}</p>
+            <div class="product-price">{{ product.price }}</div>
+            <div class="product-actions">
+              <button class="view-btn" (click)="viewProduct(product.id)">
+                <i class="fa fa-eye"></i> View Details
+              </button>
+              <button class="buy-btn" (click)="addToCart(product.id)">
+                <i class="fa fa-shopping-cart"></i> Buy Now
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Browse Categories Section -->
+    <div class="categories-section">
+      <h2 class="section-title">
+        <i class="fa fa-th-large"></i> Browse Categories
+      </h2>
+      <div class="categories-grid">
+        <div class="category-card" *ngFor="let category of categories">
+          <div class="category-icon">
+            <i class="fa {{ category.icon }}"></i>
+          </div>
+          <h3 class="category-name">{{ category.name }}</h3>
+          <div class="category-count">{{ category.count }} items</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- My Orders Summary -->
+    <div class="orders-section">
+      <h2 class="section-title">
+        <i class="fa fa-shopping-bag"></i> My Recent Orders
+      </h2>
+      <div class="orders-table-container">
+        <table class="orders-table">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Product Name</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of recentOrders">
+              <td>{{ order.id }}</td>
+              <td>{{ order.productName }}</td>
+              <td>
+                <span
+                  class="status-badge"
+                  [class]="
+                    'status-' + order.status.toLowerCase().replace(' ', '-')
+                  "
+                >
+                  {{ order.status }}
+                </span>
+              </td>
+              <td>{{ order.date }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Call-to-Action Banner -->
+    <div class="cta-banner">
+      <div class="cta-content">
+        <div class="cta-text">
+          <h2 class="cta-title">
+            <i class="fa fa-gem"></i> Explore Limited Collections
+          </h2>
+          <p class="cta-description">
+            Discover exclusive Bank Al-Maghrib commemorative items and limited
+            edition releases.
+          </p>
+        </div>
+        <button class="cta-button" (click)="exploreProducts()">
+          <i class="fa fa-arrow-right"></i> Browse All Products
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
