@@ -14,7 +14,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 export const routes: Routes = [
-  { path: '', component: DashboardComponent },
+  { path: 'admin/dashboard', component: DashboardComponent },
   { path: 'products', component: ProductListPageComponent },
   { path: 'products/:id', component: ProductDetailPageComponent },
   { path: 'cart', component: CartPageComponent },
@@ -25,4 +25,5 @@ export const routes: Routes = [
   { path: 'about', component: AboutPageComponent },
   { path: 'contact', component: ContactPageComponent },
   { path: '**', component: NotFoundPageComponent },
+  
 ];

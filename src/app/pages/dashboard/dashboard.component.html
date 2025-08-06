@@ -16,11 +16,9 @@
     <!-- Quick Actions -->
     <div class="dashboard-actions">
       <button class="action-btn">
-        <i class="fa fa-box"></i> Manage Products
+        <i class="fa fa-tools"></i> Manage Products
       </button>
-      <button class="action-btn">
-        <i class="fa fa-shopping-bag"></i> View Orders
-      </button>
+      <button class="action-btn"><i class="fa fa-box"></i> View Orders</button>
       <button class="action-btn">
         <i class="fa fa-plus"></i> Add New Item
       </button>
@@ -31,7 +29,7 @@
       <div class="stat-card" *ngFor="let stat of stats">
         <div class="stat-icon"><i class="fa {{ stat.icon }}"></i></div>
         <div class="stat-label">{{ stat.label }}</div>
-        <div class="stat-value">{{ stat.value }}</div>
+        <div class="stat-value">{{ formatStatValue(stat) }}</div>
       </div>
     </div>
 
@@ -49,6 +47,7 @@
               <th>Product</th>
               <th>Amount</th>
               <th>Date</th>
+              <th>Order Status</th>
             </tr>
           </thead>
           <tbody>
@@ -57,6 +56,7 @@
               <td>{{ order.product }}</td>
               <td>{{ order.amount }}</td>
               <td>{{ order.date }}</td>
+              <td>{{ order.status }}</td>
             </tr>
           </tbody>
         </table>
