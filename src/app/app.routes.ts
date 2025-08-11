@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { HomePageComponent } from './pages/home-page/home-page.component';
-import { ProductListPageComponent } from './pages/product-list-page/product-list-page.component';
 import { ProductDetailPageComponent } from './pages/product-detail-page/product-detail-page.component';
 import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
@@ -13,12 +12,13 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
 import { RegisterComponent } from './pages/register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ClientDashboardComponent } from './pages/client-dashboard/client-dashboard.component';
+import { ProductsPageComponent } from './pages/products-page/products-page.component';
 
 export const routes: Routes = [
   { path: '', component: ClientDashboardComponent },
   { path: 'dashboard', component: ClientDashboardComponent },
   { path: 'admin/dashboard', component: DashboardComponent },
-  { path: 'products', component: ProductListPageComponent },
+  { path: 'products', component: ProductsPageComponent },
   { path: 'products/:id', component: ProductDetailPageComponent },
   { path: 'cart', component: CartPageComponent },
   { path: 'login', component: LoginPageComponent },

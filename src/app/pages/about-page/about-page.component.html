@@ -1,1 +1,122 @@
-<p>about-page works!</p>
+<div class="about-page-bg">
+  <div class="about-page-container">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <h1 class="hero-title">About Bank Al-Maghrib Marketplace</h1>
+        <p class="hero-subtitle">
+          Discover the story behind Morocco's premier financial heritage
+          marketplace, where tradition meets innovation in the digital age.
+        </p>
+      </div>
+    </section>
+
+    <!-- Mission & Vision Section -->
+    <section class="mission-vision-section">
+      <div class="mission-vision-grid">
+        <div class="mission-card">
+          <div class="card-icon">
+            <i class="fa {{ mission.icon }}"></i>
+          </div>
+          <h2 class="card-title">{{ mission.title }}</h2>
+          <p class="card-description">{{ mission.description }}</p>
+        </div>
+
+        <div class="vision-card">
+          <div class="card-icon">
+            <i class="fa {{ vision.icon }}"></i>
+          </div>
+          <h2 class="card-title">{{ vision.title }}</h2>
+          <p class="card-description">{{ vision.description }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What We Offer Section -->
+    <section class="features-section">
+      <h2 class="section-title">What We Offer</h2>
+      <div class="features-grid">
+        <div class="feature-card" *ngFor="let feature of features">
+          <div class="feature-icon">
+            <i class="fa {{ feature.icon }}"></i>
+          </div>
+          <h3 class="feature-title">{{ feature.title }}</h3>
+          <p class="feature-description">{{ feature.description }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline/Milestones Section -->
+    <section class="timeline-section">
+      <h2 class="section-title">Our Journey</h2>
+      <div class="timeline">
+        <div class="timeline-item" *ngFor="let milestone of milestones">
+          <div class="timeline-marker">
+            <span class="timeline-year">{{ milestone.year }}</span>
+          </div>
+          <div class="timeline-content">
+            <h3 class="timeline-title">{{ milestone.title }}</h3>
+            <p class="timeline-description">{{ milestone.description }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team/Leadership Section -->
+    <section class="team-section">
+      <h2 class="section-title">Our Leadership Team</h2>
+      <div class="team-grid">
+        <div class="team-card" *ngFor="let member of teamMembers">
+          <div class="team-avatar">
+            <img [src]="member.avatar" [alt]="member.name" />
+          </div>
+          <div class="team-info">
+            <h3 class="team-name">{{ member.name }}</h3>
+            <div class="team-role">{{ member.role }}</div>
+            <p class="team-bio">{{ member.bio }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="faq-container">
+        <div class="faq-item" *ngFor="let item of faqItems; let i = index">
+          <button
+            class="faq-question"
+            (click)="toggleFAQ(i)"
+            [attr.aria-expanded]="item.isOpen"
+            [attr.aria-controls]="'faq-answer-' + i"
+          >
+            <span class="faq-question-text">{{ item.question }}</span>
+            <i class="fa fa-chevron-down" [class.rotated]="item.isOpen"></i>
+          </button>
+          <div
+            class="faq-answer"
+            [class.open]="item.isOpen"
+            [id]="'faq-answer-' + i"
+            [attr.aria-hidden]="!item.isOpen"
+          >
+            <p>{{ item.answer }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call-to-Action Banner -->
+    <section class="cta-section">
+      <div class="cta-content">
+        <h2 class="cta-title">Ready to Explore Our Products?</h2>
+        <p class="cta-description">
+          Discover authentic Bank Al-Maghrib commemorative items, investment
+          products, and collectibles that preserve our rich cultural heritage.
+        </p>
+        <button class="cta-button" (click)="exploreProducts()">
+          <i class="fa fa-arrow-right"></i> Explore Products
+        </button>
+      </div>
+    </section>
+  </div>
+</div>

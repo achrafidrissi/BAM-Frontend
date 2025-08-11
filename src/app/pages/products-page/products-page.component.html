@@ -1,0 +1,125 @@
+<div class="products-page-bg">
+  <div class="products-page-container">
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1 class="page-title">All Products</h1>
+      <div class="search-container">
+        <div class="search-box">
+          <i class="fa fa-search search-icon"></i>
+          <input
+            type="text"
+            placeholder="Search products..."
+            [(ngModel)]="searchTerm"
+            (input)="filterProducts()"
+            class="search-input"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters Section -->
+    <div class="filters-section">
+      <div class="category-filters">
+        <button
+          *ngFor="let category of categories"
+          [class]="
+            'category-pill ' + (selectedCategory === category ? 'active' : '')
+          "
+          (click)="selectedCategory = category; filterProducts()"
+        >
+          {{ category }}
+        </button>
+      </div>
+      <button class="clear-filters-btn" (click)="clearFilters()">
+        <i class="fa fa-times"></i> Clear Filters
+      </button>
+    </div>
+
+    <!-- Results Summary -->
+    <div class="results-summary">
+      <span class="results-count">
+        {{ filteredProducts.length }} product{{
+          filteredProducts.length !== 1 ? "s" : ""
+        }}
+        found
+      </span>
+      <span
+        class="results-category"
+        *ngIf="selectedCategory !== 'All Categories'"
+      >
+        in {{ selectedCategory }}
+      </span>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="products-grid">
+      <div
+        class="product-card"
+        *ngFor="let product of getCurrentPageProducts()"
+      >
+        <div class="product-image">
+          <img [src]="product.image" [alt]="product.name" />
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">{{ product.name }}</h3>
+          <p class="product-description">{{ product.description }}</p>
+          <div class="product-category">{{ product.category }}</div>
+          <div class="product-price">{{ formatPrice(product.price) }}</div>
+          <button class="add-to-cart-btn" (click)="addToCart(product)">
+            <i class="fa fa-shopping-cart"></i> Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- No Results Message -->
+    <div class="no-results" *ngIf="filteredProducts.length === 0">
+      <i class="fa fa-search"></i>
+      <h3>No products found</h3>
+      <p>Try adjusting your search terms or category filter</p>
+      <button class="clear-filters-btn" (click)="clearFilters()">
+        <i class="fa fa-refresh"></i> Clear All Filters
+      </button>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination" *ngIf="totalPages > 1">
+      <button
+        class="pagination-btn prev-btn"
+        [disabled]="currentPage === 1"
+        (click)="goToPage(currentPage - 1)"
+      >
+        <i class="fa fa-chevron-left"></i> Previous
+      </button>
+
+      <div class="page-numbers">
+        <button
+          *ngFor="let page of [].constructor(totalPages); let i = index"
+          [class]="'page-number ' + (currentPage === i + 1 ? 'active' : '')"
+          (click)="goToPage(i + 1)"
+        >
+          {{ i + 1 }}
+        </button>
+      </div>
+
+      <button
+        class="pagination-btn next-btn"
+        [disabled]="currentPage === totalPages"
+        (click)="goToPage(currentPage + 1)"
+      >
+        Next <i class="fa fa-chevron-right"></i>
+      </button>
+    </div>
+
+    <!-- Page Info -->
+    <div class="page-info" *ngIf="totalPages > 1">
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <span class="products-info">
+        Showing {{ (currentPage - 1) * productsPerPage + 1 }}-{{
+          Math.min(currentPage * productsPerPage, filteredProducts.length)
+        }}
+        of {{ filteredProducts.length }} products
+      </span>
+    </div>
+  </div>
+</div>
