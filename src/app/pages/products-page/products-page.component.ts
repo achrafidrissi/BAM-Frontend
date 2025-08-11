@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { CartService } from '../../services/cart.service';
+import { ToastService } from '../../services/toast.service';
+import {
+  QuantityDialogComponent,
+  QuantityDialogData,
+} from '../../components/quantity-dialog/quantity-dialog.component';
 
 interface Product {
   id: number;
@@ -19,12 +26,8 @@ interface Product {
   styleUrl: './products-page.component.css',
 })
 export class ProductsPageComponent implements OnInit {
-  // Make Math available in template
   Math = Math;
-
   userName = 'Ahmed';
-
-  // Mock data
   allProducts: Product[] = [
     {
       id: 1,
@@ -32,86 +35,129 @@ export class ProductsPageComponent implements OnInit {
       price: 2500,
       category: 'Gold Coins',
       image: 'assets/images/logo-bam.png',
-      description: 'Pure gold sovereign coin from Bank Al-Maghrib collection',
+      description:
+        'Classic British gold sovereign coin, perfect for investment and collection.',
     },
     {
       id: 2,
-      name: 'Silver Dirham Bar',
-      price: 1200,
-      category: 'Silver Bars',
+      name: 'Silver Maple Leaf',
+      price: 850,
+      category: 'Silver Coins',
       image: 'assets/images/logo-bam.png',
-      description: 'Limited edition silver dirham commemorative bar',
+      description:
+        'Canadian silver maple leaf coin with exceptional purity and design.',
     },
     {
       id: 3,
-      name: 'Moroccan Heritage Set',
-      price: 3800,
-      category: 'Collector Sets',
+      name: 'Platinum Eagle',
+      price: 4200,
+      category: 'Platinum Coins',
       image: 'assets/images/logo-bam.png',
-      description: 'Complete collection of Moroccan heritage coins',
+      description:
+        'American platinum eagle with stunning design and high purity.',
     },
     {
       id: 4,
-      name: 'Commemorative Note',
-      price: 800,
-      category: 'Banknotes',
+      name: 'Palladium Bar',
+      price: 1800,
+      category: 'Palladium',
       image: 'assets/images/logo-bam.png',
-      description: 'Special edition commemorative banknote',
+      description:
+        'Investment-grade palladium bar with certificate of authenticity.',
     },
     {
       id: 5,
-      name: 'Limited Edition Gold Bar',
-      price: 5000,
-      category: 'Limited Edition',
+      name: 'Gold Krugerrand',
+      price: 2800,
+      category: 'Gold Coins',
       image: 'assets/images/logo-bam.png',
-      description: 'Exclusive limited edition gold bar',
+      description:
+        'South African gold krugerrand, a classic investment choice.',
     },
     {
       id: 6,
-      name: 'Silver Commemorative Coin',
+      name: 'Silver American Eagle',
       price: 950,
-      category: 'Commemorative',
+      category: 'Silver Coins',
       image: 'assets/images/logo-bam.png',
-      description: 'Beautiful silver commemorative coin',
+      description: 'Iconic American silver eagle with beautiful design.',
     },
     {
       id: 7,
-      name: 'Royal Collection Set',
-      price: 4200,
-      category: 'Collector Sets',
+      name: 'Gold Britannia',
+      price: 2600,
+      category: 'Gold Coins',
       image: 'assets/images/logo-bam.png',
-      description: 'Premium royal collection set',
+      description: 'British gold britannia coin with modern security features.',
     },
     {
       id: 8,
-      name: 'Gold Investment Coin',
-      price: 1800,
+      name: 'Silver Philharmonic',
+      price: 900,
+      category: 'Silver Coins',
+      image: 'assets/images/logo-bam.png',
+      description: 'Austrian silver philharmonic with musical theme design.',
+    },
+    {
+      id: 9,
+      name: 'Gold Maple Leaf',
+      price: 2700,
       category: 'Gold Coins',
       image: 'assets/images/logo-bam.png',
-      description: 'Investment grade gold coin',
+      description: 'Canadian gold maple leaf with exceptional purity.',
+    },
+    {
+      id: 10,
+      name: 'Silver Kangaroo',
+      price: 880,
+      category: 'Silver Coins',
+      image: 'assets/images/logo-bam.png',
+      description: 'Australian silver kangaroo with unique design.',
+    },
+    {
+      id: 11,
+      name: 'Gold American Eagle',
+      price: 2900,
+      category: 'Gold Coins',
+      image: 'assets/images/logo-bam.png',
+      description: 'American gold eagle with iconic design and high purity.',
+    },
+    {
+      id: 12,
+      name: 'Silver Britannia',
+      price: 920,
+      category: 'Silver Coins',
+      image: 'assets/images/logo-bam.png',
+      description: 'British silver britannia with modern security features.',
     },
   ];
 
-  // Filtering and search
   searchTerm: string = '';
   selectedCategory: string = 'All Categories';
   filteredProducts: Product[] = [];
-
-  // Pagination
   currentPage: number = 1;
   productsPerPage: number = 8;
   totalPages: number = 1;
 
-  // Categories for filter
   categories: string[] = [
     'All Categories',
     'Gold Coins',
+    'Silver Coins',
+    'Platinum Coins',
+    'Palladium',
+    'Gold Bars',
     'Silver Bars',
     'Commemorative',
     'Collector Sets',
     'Banknotes',
     'Limited Edition',
   ];
+
+  constructor(
+    private cartService: CartService,
+    private toastService: ToastService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.filterProducts();
@@ -165,15 +211,24 @@ export class ProductsPageComponent implements OnInit {
     }
   }
 
-  // Add to cart functionality
-  addToCart(product: Product): void {
-    console.log(`Added ${product.name} to cart`);
-    // Placeholder function for add to cart functionality
+  // Show quantity dialog for add to cart
+  showAddToCartDialog(product: Product): void {
+    const dialogRef = this.dialog.open(QuantityDialogComponent, {
+      width: '500px',
+      maxWidth: '90vw',
+      data: { product } as QuantityDialogData,
+      disableClose: false,
+      autoFocus: false,
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      // Dialog closed, no action needed
+    });
   }
 
   // Format price with MAD currency
   formatPrice(price: number): string {
-    return price.toLocaleString() + ' MAD';
+    return this.cartService.formatPrice(price);
   }
 
   // Clear all filters

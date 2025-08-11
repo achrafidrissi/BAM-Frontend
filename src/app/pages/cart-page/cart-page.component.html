@@ -1,1 +1,182 @@
-<p>cart-page works!</p>
+<div class="cart-page-bg">
+  <div class="cart-page-container">
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1 class="page-title">
+        <i class="fa fa-shopping-cart"></i> Shopping Cart
+      </h1>
+      <p class="page-subtitle">Review your items and proceed to checkout</p>
+    </div>
+
+    <!-- Cart Content -->
+    <div class="cart-content" *ngIf="!isCartEmpty(); else emptyCart">
+      <!-- Desktop Table View -->
+      <div class="cart-table-container" *ngIf="cart.items.length > 0">
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th class="product-col">Product</th>
+              <th class="price-col">Price</th>
+              <th class="quantity-col">Quantity</th>
+              <th class="total-col">Total</th>
+              <th class="action-col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of cart.items" class="cart-item-row">
+              <td class="product-cell">
+                <div class="product-info">
+                  <div class="product-image">
+                    <img [src]="item.image" [alt]="item.name" />
+                  </div>
+                  <div class="product-details">
+                    <h3 class="product-name">{{ item.name }}</h3>
+                  </div>
+                </div>
+              </td>
+              <td class="price-cell">
+                <span class="unit-price">{{ formatPrice(item.price) }}</span>
+              </td>
+              <td class="quantity-cell">
+                <div class="quantity-controls">
+                  <button
+                    class="quantity-btn"
+                    (click)="updateQuantity(item, item.quantity - 1)"
+                    [disabled]="item.quantity <= 1"
+                    aria-label="Decrease quantity"
+                  >
+                    <i class="fa fa-minus"></i>
+                  </button>
+
+                  <span class="quantity-display">{{ item.quantity }}</span>
+
+                  <button
+                    class="quantity-btn"
+                    (click)="updateQuantity(item, item.quantity + 1)"
+                    aria-label="Increase quantity"
+                  >
+                    <i class="fa fa-plus"></i>
+                  </button>
+                </div>
+              </td>
+              <td class="total-cell">
+                <span class="line-total">{{
+                  formatPrice(item.lineTotal)
+                }}</span>
+              </td>
+              <td class="action-cell">
+                <button
+                  class="remove-btn"
+                  (click)="removeItem(item.id)"
+                  aria-label="Remove item"
+                >
+                  <i class="fa fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile Card View -->
+      <div class="cart-cards-container" *ngIf="cart.items.length > 0">
+        <div class="cart-item-card" *ngFor="let item of cart.items">
+          <div class="card-product-info">
+            <div class="card-product-image">
+              <img [src]="item.image" [alt]="item.name" />
+            </div>
+            <div class="card-product-details">
+              <h3 class="card-product-name">{{ item.name }}</h3>
+              <p class="card-unit-price">{{ formatPrice(item.price) }} each</p>
+            </div>
+          </div>
+
+          <div class="card-quantity-section">
+            <label class="quantity-label">Quantity:</label>
+            <div class="card-quantity-controls">
+              <button
+                class="quantity-btn"
+                (click)="updateQuantity(item, item.quantity - 1)"
+                [disabled]="item.quantity <= 1"
+                aria-label="Decrease quantity"
+              >
+                <i class="fa fa-minus"></i>
+              </button>
+
+              <span class="quantity-display">{{ item.quantity }}</span>
+
+              <button
+                class="quantity-btn"
+                (click)="updateQuantity(item, item.quantity + 1)"
+                aria-label="Increase quantity"
+              >
+                <i class="fa fa-plus"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="card-total-section">
+            <span class="card-total-label">Line Total:</span>
+            <span class="card-line-total">{{
+              formatPrice(item.lineTotal)
+            }}</span>
+          </div>
+
+          <button
+            class="card-remove-btn"
+            (click)="removeItem(item.id)"
+            aria-label="Remove item"
+          >
+            <i class="fa fa-trash"></i> Remove
+          </button>
+        </div>
+      </div>
+
+      <!-- Cart Summary -->
+      <div class="cart-summary">
+        <div class="summary-header">
+          <h2 class="summary-title">Cart Summary</h2>
+          <button class="clear-cart-btn" (click)="clearCart()">
+            <i class="fa fa-trash"></i> Clear Cart
+          </button>
+        </div>
+
+        <div class="summary-details">
+          <div class="summary-row">
+            <span class="summary-label">Items:</span>
+            <span class="summary-value">{{ cart.totalQuantity }}</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">Subtotal:</span>
+            <span class="summary-value">{{ formatPrice(cart.subtotal) }}</span>
+          </div>
+        </div>
+
+        <div class="summary-actions">
+          <button class="continue-shopping-btn" (click)="continueShopping()">
+            <i class="fa fa-arrow-left"></i> Continue Shopping
+          </button>
+          <button class="checkout-btn" (click)="proceedToCheckout()">
+            <i class="fa fa-credit-card"></i> Proceed to Checkout
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty Cart Template -->
+    <ng-template #emptyCart>
+      <div class="empty-cart">
+        <div class="empty-cart-icon">
+          <i class="fa fa-shopping-cart"></i>
+        </div>
+        <h2 class="empty-cart-title">Your cart is empty</h2>
+        <p class="empty-cart-message">
+          Looks like you haven't added any items to your cart yet.
+        </p>
+        <button class="start-shopping-btn" (click)="continueShopping()">
+          <i class="fa fa-shopping-bag"></i> Start Shopping
+        </button>
+      </div>
+    </ng-template>
+  </div>
+</div>

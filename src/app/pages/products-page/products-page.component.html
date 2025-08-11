@@ -65,8 +65,11 @@
           <p class="product-description">{{ product.description }}</p>
           <div class="product-category">{{ product.category }}</div>
           <div class="product-price">{{ formatPrice(product.price) }}</div>
-          <button class="add-to-cart-btn" (click)="addToCart(product)">
-            <i class="fa fa-shopping-cart"></i> Add to Cart
+          <button
+            class="add-to-cart-btn"
+            (click)="showAddToCartDialog(product)"
+          >
+            <i class="fa fa-shopping-cart"></i> Buy Now
           </button>
         </div>
       </div>

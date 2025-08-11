@@ -1,5 +1,5 @@
 .navbar {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
@@ -71,31 +71,31 @@
 .navbar-right {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: 12px;
+  margin-left: auto;
 }
 
-.search-bar {
-  display: flex;
-  align-items: center;
-  background: #7a5c2e;
-  border-radius: 6px;
-  padding: 0.25rem 0.5rem;
-}
-
-.search-bar input {
-  background: transparent;
+.cart-button {
+  position: relative;
+  background: none;
   border: none;
   color: #fff;
-  font-size: 1rem;
-  outline: none;
-  padding: 0.25rem 0.5rem;
-  width: 120px;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.search-bar .search-icon {
+.cart-button:hover {
+  background: rgba(255, 231, 179, 0.1);
   color: #ffe7b3;
-  margin-left: 0.25rem;
-  font-size: 1.1rem;
+}
+
+.cart-button i {
+  font-size: 1.2rem;
 }
 
 .icon {
@@ -105,10 +105,6 @@
   font-size: 1.3rem;
   cursor: pointer;
   margin-left: 0.5rem;
-  position: relative;
-}
-
-.cart-icon {
   position: relative;
 }
 
@@ -125,6 +121,9 @@
   min-width: 20px;
   text-align: center;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hamburger {
@@ -202,6 +201,9 @@
   .mobile-menu {
     display: flex;
   }
+  .cart-button {
+    margin-right: 0.5rem;
+  }
 }
 
 @media (max-width: 500px) {
@@ -221,5 +223,5 @@
 }
 
 body {
-  padding-top: 64px;
+  padding-top: 0;
 }

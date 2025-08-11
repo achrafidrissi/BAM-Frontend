@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Import Angular Material theme */
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+/* Import FontAwesome */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css");
+
+/* Global styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  background-color: #faf8f5;
+  color: #333;
+}
+
+/* Ensure proper spacing for sticky navbar */
+body {
+  padding-top: 0;
+}

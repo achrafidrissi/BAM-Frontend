@@ -1,0 +1,81 @@
+<div class="quantity-dialog">
+  <!-- Dialog Header -->
+  <div class="dialog-header">
+    <h2 class="dialog-title">Add to Cart</h2>
+    <button class="close-btn" (click)="onCancel()" aria-label="Close dialog">
+      <i class="fa fa-times"></i>
+    </button>
+  </div>
+
+  <!-- Dialog Body -->
+  <div class="dialog-body">
+    <!-- Product Info -->
+    <div class="product-info">
+      <div class="product-image">
+        <img [src]="data.product.image" [alt]="data.product.name" />
+      </div>
+      <div class="product-details">
+        <h3 class="product-name">{{ data.product.name }}</h3>
+        <p class="product-category">{{ data.product.category }}</p>
+        <p class="product-price">{{ formatPrice(data.product.price) }}</p>
+      </div>
+    </div>
+
+    <!-- Quantity Selector -->
+    <div class="quantity-section">
+      <label for="quantity" class="quantity-label">Quantity:</label>
+      <div class="quantity-controls">
+        <button
+          class="quantity-btn decrease-btn"
+          (click)="decreaseQuantity()"
+          [disabled]="quantity <= 1"
+          aria-label="Decrease quantity"
+          type="button"
+        >
+          <i class="fa fa-minus"></i>
+        </button>
+
+        <input
+          type="number"
+          id="quantity"
+          class="quantity-input"
+          [value]="quantity"
+          (input)="onQuantityChange($event)"
+          min="1"
+          aria-label="Quantity"
+        />
+
+        <button
+          class="quantity-btn increase-btn"
+          (click)="increaseQuantity()"
+          aria-label="Increase quantity"
+          type="button"
+        >
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Total Price -->
+    <div class="total-section">
+      <span class="total-label">Total:</span>
+      <span class="total-price">{{ formatPrice(getTotalPrice()) }}</span>
+    </div>
+  </div>
+
+  <!-- Dialog Footer -->
+  <div class="dialog-footer">
+    <button class="cancel-btn" (click)="onCancel()" type="button">
+      Cancel
+    </button>
+    <button
+      class="add-to-cart-btn"
+      (click)="onAddToCart()"
+      [disabled]="quantity < 1"
+      type="button"
+    >
+      <i class="fa fa-shopping-cart"></i>
+      Add to Cart
+    </button>
+  </div>
+</div>
