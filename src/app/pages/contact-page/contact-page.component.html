@@ -1,1 +1,285 @@
-<p>contact-page works!</p>
+<div class="contact-page-bg">
+  <div class="contact-page-container">
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1 class="page-title">Contact Us</h1>
+      <p class="page-subtitle">
+        Get in touch with Bank Al-Maghrib Marketplace. We're here to help with
+        any questions about our products, services, or your orders.
+      </p>
+    </div>
+
+    <!-- Success Message Toast -->
+    <div
+      class="success-toast"
+      *ngIf="showSuccessMessage"
+      role="alert"
+      aria-live="polite"
+    >
+      <div class="toast-content">
+        <i class="fa fa-check-circle"></i>
+        <span
+          >Your message has been sent successfully! We'll get back to you
+          soon.</span
+        >
+        <button
+          class="toast-close"
+          (click)="showSuccessMessage = false"
+          aria-label="Close message"
+        >
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="contact-content">
+      <!-- Left Column: Contact Form -->
+      <div class="contact-form-section">
+        <div class="form-card">
+          <h2 class="form-title">
+            <i class="fa fa-envelope"></i> Send us a Message
+          </h2>
+
+          <form
+            [formGroup]="contactForm"
+            (ngSubmit)="onSubmit()"
+            class="contact-form"
+          >
+            <!-- Full Name Field -->
+            <div class="form-group">
+              <label for="fullName" class="form-label">
+                Full Name <span class="required">*</span>
+              </label>
+              <input
+                type="text"
+                id="fullName"
+                formControlName="fullName"
+                class="form-input"
+                [class.error]="hasError('fullName')"
+                [attr.aria-invalid]="hasError('fullName')"
+                [attr.aria-describedby]="
+                  hasError('fullName') ? 'fullName-error' : null
+                "
+                placeholder="Enter your full name"
+                autocomplete="name"
+              />
+              <div
+                *ngIf="hasError('fullName')"
+                id="fullName-error"
+                class="error-message"
+                role="alert"
+              >
+                {{ getErrorMessage("fullName") }}
+              </div>
+            </div>
+
+            <!-- Email Field -->
+            <div class="form-group">
+              <label for="email" class="form-label">
+                Email Address <span class="required">*</span>
+              </label>
+              <input
+                type="email"
+                id="email"
+                formControlName="email"
+                class="form-input"
+                [class.error]="hasError('email')"
+                [attr.aria-invalid]="hasError('email')"
+                [attr.aria-describedby]="
+                  hasError('email') ? 'email-error' : null
+                "
+                placeholder="Enter your email address"
+                autocomplete="email"
+              />
+              <div
+                *ngIf="hasError('email')"
+                id="email-error"
+                class="error-message"
+                role="alert"
+              >
+                {{ getErrorMessage("email") }}
+              </div>
+            </div>
+
+            <!-- Subject Field -->
+            <div class="form-group">
+              <label for="subject" class="form-label">
+                Subject <span class="required">*</span>
+              </label>
+              <input
+                type="text"
+                id="subject"
+                formControlName="subject"
+                class="form-input"
+                [class.error]="hasError('subject')"
+                [attr.aria-invalid]="hasError('subject')"
+                [attr.aria-describedby]="
+                  hasError('subject') ? 'subject-error' : null
+                "
+                placeholder="What is this about?"
+                autocomplete="off"
+              />
+              <div
+                *ngIf="hasError('subject')"
+                id="subject-error"
+                class="error-message"
+                role="alert"
+              >
+                {{ getErrorMessage("subject") }}
+              </div>
+            </div>
+
+            <!-- Message Field -->
+            <div class="form-group">
+              <label for="message" class="form-label">
+                Message <span class="required">*</span>
+              </label>
+              <textarea
+                id="message"
+                formControlName="message"
+                class="form-textarea"
+                [class.error]="hasError('message')"
+                [attr.aria-invalid]="hasError('message')"
+                [attr.aria-describedby]="
+                  hasError('message') ? 'message-error' : null
+                "
+                placeholder="Tell us more about your inquiry..."
+                rows="6"
+                maxlength="1000"
+              ></textarea>
+              <div class="textarea-footer">
+                <div
+                  *ngIf="hasError('message')"
+                  id="message-error"
+                  class="error-message"
+                  role="alert"
+                >
+                  {{ getErrorMessage("message") }}
+                </div>
+                <div class="char-count">{{ getMessageCharCount() }}/1000</div>
+              </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="form-actions">
+              <button
+                type="submit"
+                class="submit-btn"
+                [disabled]="!isFormValid()"
+                [class.loading]="isSubmitting"
+              >
+                <span *ngIf="!isSubmitting">
+                  <i class="fa fa-paper-plane"></i> Send Message
+                </span>
+                <span *ngIf="isSubmitting">
+                  <i class="fa fa-spinner fa-spin"></i> Sending...
+                </span>
+              </button>
+
+              <button
+                type="button"
+                class="reset-btn"
+                (click)="resetForm()"
+                [disabled]="isSubmitting"
+              >
+                <i class="fa fa-undo"></i> Reset
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Right Column: Contact Information -->
+      <div class="contact-info-section">
+        <!-- Contact Info Card -->
+        <div class="info-card">
+          <h2 class="info-title">
+            <i class="fa fa-info-circle"></i> Get in Touch
+          </h2>
+
+          <div class="info-content">
+            <!-- Address -->
+            <div class="info-item">
+              <div class="info-icon">
+                <i class="fa fa-map-marker-alt"></i>
+              </div>
+              <div class="info-details">
+                <h3 class="info-label">Address</h3>
+                <p class="info-value">{{ contactInfo.address }}</p>
+              </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="info-item">
+              <div class="info-icon">
+                <i class="fa fa-phone"></i>
+              </div>
+              <div class="info-details">
+                <h3 class="info-label">Phone</h3>
+                <p class="info-value">{{ contactInfo.phone }}</p>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="info-item">
+              <div class="info-icon">
+                <i class="fa fa-envelope"></i>
+              </div>
+              <div class="info-details">
+                <h3 class="info-label">Email</h3>
+                <p class="info-value">{{ contactInfo.email }}</p>
+              </div>
+            </div>
+
+            <!-- Business Hours -->
+            <div class="info-item">
+              <div class="info-icon">
+                <i class="fa fa-clock"></i>
+              </div>
+              <div class="info-details">
+                <h3 class="info-label">Business Hours</h3>
+                <p class="info-value">{{ contactInfo.businessHours }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Links -->
+          <div class="social-links">
+            <h3 class="social-title">Follow Us</h3>
+            <div class="social-icons">
+              <a
+                *ngFor="let social of contactInfo.socialLinks"
+                [href]="social.url"
+                class="social-link"
+                [attr.aria-label]="social.label"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i class="fa {{ social.icon }}"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Map Card -->
+        <div class="map-card">
+          <h3 class="map-title"><i class="fa fa-map"></i> Our Location</h3>
+          <div class="map-container">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3308.1234567890123!2d-6.8497!3d34.0209!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzTCsDAxJzE1LjIiTiA2wrA1MCc1OC45Ilc!5e0!3m2!1sen!2sma!4v1234567890123"
+              width="100%"
+              height="250"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Bank Al-Maghrib Location"
+              aria-label="Interactive map showing Bank Al-Maghrib location in Rabat, Morocco"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
